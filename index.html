@@ -1,1 +1,2050 @@
-It works!
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blankavalo&trade;</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/d2codingfont@1.3.2/d2coding-full.css">
+    <style>
+        /* 기본 스타일 리셋 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scroll-thumb) transparent;
+        }
+
+        html::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background-color: var(--scroll-thumb);
+            border-radius: 999px;
+        }
+
+        html::-webkit-scrollbar-thumb:hover {
+            background-color: var(--scroll-thumb-hover);
+        }
+
+        body {
+            font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-color: var(--bg);
+            color: var(--text);
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* 배경 은은한 백마 갈기·유선형 곡선 패턴 */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image: var(--bg-pattern);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            opacity: var(--pattern-opacity);
+            transition: opacity 0.25s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            color: inherit;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 컬러 토큰: 라이트 팔레트 / data-theme="dark"에서 다크 팔레트 적용 */
+        :root {
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --text: #111214;
+            --muted: #5c616a;
+            --border: #e3e6ea;
+            --accent: #111214;
+            --accent-text: #ffffff;
+            --shadow: 0 12px 32px rgba(17, 18, 20, 0.06);
+            --tooltip-bg: #111214;
+            --tooltip-text: #ffffff;
+            --tooltip-border: #2a2d34;
+            --modal-backdrop: rgba(12, 13, 16, 0.58);
+            --amount-in: #15803d;
+            --amount-out: #dc2626;
+            --scroll-thumb: rgba(17, 18, 20, 0.16);
+            --scroll-thumb-hover: rgba(17, 18, 20, 0.34);
+            --logo-filter: invert(1);
+            --btt-logo-filter: none;
+            --pattern-opacity: 0.22;
+            --watermark-opacity: 0.3;
+            --cb-ink: #7b8798;
+            --cb-blue: #4a5f8a;
+            --cb-ochre: #a98255;
+            --bg-pattern: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221440%22%20height%3D%22900%22%20viewBox%3D%220%200%201440%20900%22%20fill%3D%22none%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22cubistHatch%22%20width%3D%227%22%20height%3D%227%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%2838%29%22%3E%3Cline%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%227%22%20stroke%3D%22%237b8798%22%20stroke-width%3D%220.8%22%20stroke-opacity%3D%220.32%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Cpolygon%20points%3D%2260%2C120%20340%2C60%20420%2C300%20150%2C380%22%20fill%3D%22%234a5f8a%22%20fill-opacity%3D%220.09%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22340%2C60%20560%2C140%20420%2C300%22%20fill%3D%22%237b8798%22%20fill-opacity%3D%220.06%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22150%2C380%20420%2C300%20380%2C560%2090%2C620%22%20fill%3D%22%23a98255%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22150%2C380%20420%2C300%20380%2C560%2090%2C620%22%20fill%3D%22url%28%23cubistHatch%29%22%20stroke%3D%22none%22%2F%3E%0A%3Cpolygon%20points%3D%221000%2C60%201380%2C140%201300%2C420%201060%2C340%22%20fill%3D%22%237b8798%22%20fill-opacity%3D%220.05%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%221060%2C340%201300%2C420%201240%2C640%20980%2C560%22%20fill%3D%22%234a5f8a%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%221060%2C340%201300%2C420%201240%2C640%20980%2C560%22%20fill%3D%22url%28%23cubistHatch%29%22%20stroke%3D%22none%22%2F%3E%0A%3Cpolygon%20points%3D%221300%2C420%201440%2C380%201440%2C700%201240%2C640%22%20fill%3D%22%23a98255%22%20fill-opacity%3D%220.07%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22520%2C640%20820%2C580%20900%2C860%20560%2C900%22%20fill%3D%22%237b8798%22%20fill-opacity%3D%220.05%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22820%2C580%201100%2C640%201020%2C900%20900%2C860%22%20fill%3D%22%234a5f8a%22%20fill-opacity%3D%220.07%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22695.4%2C269.2%20698.4%2C262%20702.1%2C255%20706.3%2C248.4%20711.1%2C242.1%20716.4%2C236.4%20722.1%2C231.1%20728.4%2C226.3%20735%2C222.1%20742%2C218.4%20749.2%2C215.4%20756.7%2C213.1%20764.4%2C211.4%20772.2%2C210.3%20780%2C210%20787.8%2C210.3%20795.6%2C211.4%20803.3%2C213.1%20810.8%2C215.4%20818%2C218.4%20825%2C222.1%20831.6%2C226.3%20837.9%2C231.1%20843.6%2C236.4%20848.9%2C242.1%20853.7%2C248.4%20857.9%2C255%20861.6%2C262%20864.6%2C269.2%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.5%22%20stroke-width%3D%221.3%22%2F%3E%0A%3Cpolyline%20points%3D%22652%2C277.4%20654.9%2C264.8%20659%2C252.5%20664.3%2C240.7%20670.8%2C229.5%20678.4%2C218.9%20686.9%2C209.2%20696.4%2C200.4%20706.8%2C192.6%20717.8%2C185.8%20729.5%2C180.2%20741.7%2C175.8%20754.2%2C172.6%20767.1%2C170.6%20780%2C170%20792.9%2C170.6%20805.8%2C172.6%20818.3%2C175.8%20830.5%2C180.2%20842.2%2C185.8%20853.2%2C192.6%20863.6%2C200.4%20873.1%2C209.2%20881.6%2C218.9%20889.2%2C229.5%20895.7%2C240.7%20901%2C252.5%20905.1%2C264.8%20908%2C277.4%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.1%22%2F%3E%0A%3Cpolyline%20points%3D%22610%2C300%20610.7%2C284.1%20613%2C268.4%20616.6%2C252.9%20621.8%2C237.9%20628.2%2C223.4%20636.1%2C209.6%20645.1%2C196.5%20655.4%2C184.4%20666.7%2C173.2%20679.1%2C163.2%20692.3%2C154.4%20706.2%2C146.8%20720.9%2C140.6%20736%2C135.8%20751.5%2C132.4%20767.3%2C130.5%20783.2%2C130%20799%2C131.1%20814.7%2C133.6%20830.1%2C137.6%20845.1%2C142.9%20859.4%2C149.7%20873.1%2C157.8%20886%2C167.1%20897.9%2C177.6%20908.9%2C189.1%20918.6%2C201.6%20927.2%2C215%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%221192.2%2C808.9%201184.4%2C809.9%201176.5%2C809.9%201168.7%2C809.1%201161%2C807.4%201153.6%2C804.8%201146.5%2C801.5%201139.8%2C797.3%201133.7%2C792.5%201128.1%2C787%201123.2%2C780.9%201118.9%2C774.2%201115.5%2C767.2%201112.9%2C759.8%201111.1%2C752.2%201110.1%2C744.4%201110.1%2C736.5%201110.9%2C728.7%201112.6%2C721%201115.2%2C713.6%201118.5%2C706.5%201122.7%2C699.8%201127.5%2C693.7%201133%2C688.1%201139.1%2C683.2%201145.8%2C678.9%201152.8%2C675.5%201160.2%2C672.9%201167.8%2C671.1%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221.2%22%2F%3E%0A%3Cpolyline%20points%3D%221217.6%2C843.4%201205.8%2C846.9%201193.7%2C849.1%201181.4%2C850%201169%2C849.5%201156.9%2C847.5%201145%2C844.3%201133.5%2C839.7%201122.6%2C833.9%201112.5%2C826.8%201103.2%2C818.7%201094.9%2C809.7%201087.6%2C799.7%201081.5%2C789%201076.6%2C777.6%201073.1%2C765.8%201070.9%2C753.7%201070%2C741.4%201070.5%2C729%201072.5%2C716.9%201075.7%2C705%201080.3%2C693.5%201086.1%2C682.6%201093.2%2C672.5%201101.3%2C663.2%201110.3%2C654.9%201120.3%2C647.6%201131%2C641.5%201142.4%2C636.6%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22-20%2C520%201460%2C240%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22200%2C-20%20700%2C920%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%221200%2C-20%20900%2C920%22%20fill%3D%22none%22%20stroke%3D%22%237b8798%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E");
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0c0d10;
+            --surface: #14161a;
+            --text: #f4f5f7;
+            --muted: #9aa0a8;
+            --border: #252830;
+            --accent: #f4f5f7;
+            --accent-text: #0c0d10;
+            --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+            --tooltip-bg: #f4f5f7;
+            --tooltip-text: #0c0d10;
+            --tooltip-border: #d8dce2;
+            --modal-backdrop: rgba(0, 0, 0, 0.74);
+            --amount-in: #4ade80;
+            --amount-out: #f87171;
+            --scroll-thumb: rgba(244, 245, 247, 0.16);
+            --scroll-thumb-hover: rgba(244, 245, 247, 0.34);
+            --logo-filter: none;
+            --btt-logo-filter: brightness(0) invert(1);
+            --cb-ink: #8290a5;
+            --cb-blue: #8aa0d0;
+            --cb-ochre: #d2ac78;
+            --pattern-opacity: 0.2;
+            --watermark-opacity: 0.3;
+            --bg-pattern: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221440%22%20height%3D%22900%22%20viewBox%3D%220%200%201440%20900%22%20fill%3D%22none%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22cubistHatch%22%20width%3D%227%22%20height%3D%227%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%2838%29%22%3E%3Cline%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%227%22%20stroke%3D%22%238290a5%22%20stroke-width%3D%220.8%22%20stroke-opacity%3D%220.32%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Cpolygon%20points%3D%2260%2C120%20340%2C60%20420%2C300%20150%2C380%22%20fill%3D%22%238aa0d0%22%20fill-opacity%3D%220.09%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22340%2C60%20560%2C140%20420%2C300%22%20fill%3D%22%238290a5%22%20fill-opacity%3D%220.06%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22150%2C380%20420%2C300%20380%2C560%2090%2C620%22%20fill%3D%22%23d2ac78%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22150%2C380%20420%2C300%20380%2C560%2090%2C620%22%20fill%3D%22url%28%23cubistHatch%29%22%20stroke%3D%22none%22%2F%3E%0A%3Cpolygon%20points%3D%221000%2C60%201380%2C140%201300%2C420%201060%2C340%22%20fill%3D%22%238290a5%22%20fill-opacity%3D%220.05%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%221060%2C340%201300%2C420%201240%2C640%20980%2C560%22%20fill%3D%22%238aa0d0%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%221060%2C340%201300%2C420%201240%2C640%20980%2C560%22%20fill%3D%22url%28%23cubistHatch%29%22%20stroke%3D%22none%22%2F%3E%0A%3Cpolygon%20points%3D%221300%2C420%201440%2C380%201440%2C700%201240%2C640%22%20fill%3D%22%23d2ac78%22%20fill-opacity%3D%220.07%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22520%2C640%20820%2C580%20900%2C860%20560%2C900%22%20fill%3D%22%238290a5%22%20fill-opacity%3D%220.05%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolygon%20points%3D%22820%2C580%201100%2C640%201020%2C900%20900%2C860%22%20fill%3D%22%238aa0d0%22%20fill-opacity%3D%220.07%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22695.4%2C269.2%20698.4%2C262%20702.1%2C255%20706.3%2C248.4%20711.1%2C242.1%20716.4%2C236.4%20722.1%2C231.1%20728.4%2C226.3%20735%2C222.1%20742%2C218.4%20749.2%2C215.4%20756.7%2C213.1%20764.4%2C211.4%20772.2%2C210.3%20780%2C210%20787.8%2C210.3%20795.6%2C211.4%20803.3%2C213.1%20810.8%2C215.4%20818%2C218.4%20825%2C222.1%20831.6%2C226.3%20837.9%2C231.1%20843.6%2C236.4%20848.9%2C242.1%20853.7%2C248.4%20857.9%2C255%20861.6%2C262%20864.6%2C269.2%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.5%22%20stroke-width%3D%221.3%22%2F%3E%0A%3Cpolyline%20points%3D%22652%2C277.4%20654.9%2C264.8%20659%2C252.5%20664.3%2C240.7%20670.8%2C229.5%20678.4%2C218.9%20686.9%2C209.2%20696.4%2C200.4%20706.8%2C192.6%20717.8%2C185.8%20729.5%2C180.2%20741.7%2C175.8%20754.2%2C172.6%20767.1%2C170.6%20780%2C170%20792.9%2C170.6%20805.8%2C172.6%20818.3%2C175.8%20830.5%2C180.2%20842.2%2C185.8%20853.2%2C192.6%20863.6%2C200.4%20873.1%2C209.2%20881.6%2C218.9%20889.2%2C229.5%20895.7%2C240.7%20901%2C252.5%20905.1%2C264.8%20908%2C277.4%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.4%22%20stroke-width%3D%221.1%22%2F%3E%0A%3Cpolyline%20points%3D%22610%2C300%20610.7%2C284.1%20613%2C268.4%20616.6%2C252.9%20621.8%2C237.9%20628.2%2C223.4%20636.1%2C209.6%20645.1%2C196.5%20655.4%2C184.4%20666.7%2C173.2%20679.1%2C163.2%20692.3%2C154.4%20706.2%2C146.8%20720.9%2C140.6%20736%2C135.8%20751.5%2C132.4%20767.3%2C130.5%20783.2%2C130%20799%2C131.1%20814.7%2C133.6%20830.1%2C137.6%20845.1%2C142.9%20859.4%2C149.7%20873.1%2C157.8%20886%2C167.1%20897.9%2C177.6%20908.9%2C189.1%20918.6%2C201.6%20927.2%2C215%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%221192.2%2C808.9%201184.4%2C809.9%201176.5%2C809.9%201168.7%2C809.1%201161%2C807.4%201153.6%2C804.8%201146.5%2C801.5%201139.8%2C797.3%201133.7%2C792.5%201128.1%2C787%201123.2%2C780.9%201118.9%2C774.2%201115.5%2C767.2%201112.9%2C759.8%201111.1%2C752.2%201110.1%2C744.4%201110.1%2C736.5%201110.9%2C728.7%201112.6%2C721%201115.2%2C713.6%201118.5%2C706.5%201122.7%2C699.8%201127.5%2C693.7%201133%2C688.1%201139.1%2C683.2%201145.8%2C678.9%201152.8%2C675.5%201160.2%2C672.9%201167.8%2C671.1%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.45%22%20stroke-width%3D%221.2%22%2F%3E%0A%3Cpolyline%20points%3D%221217.6%2C843.4%201205.8%2C846.9%201193.7%2C849.1%201181.4%2C850%201169%2C849.5%201156.9%2C847.5%201145%2C844.3%201133.5%2C839.7%201122.6%2C833.9%201112.5%2C826.8%201103.2%2C818.7%201094.9%2C809.7%201087.6%2C799.7%201081.5%2C789%201076.6%2C777.6%201073.1%2C765.8%201070.9%2C753.7%201070%2C741.4%201070.5%2C729%201072.5%2C716.9%201075.7%2C705%201080.3%2C693.5%201086.1%2C682.6%201093.2%2C672.5%201101.3%2C663.2%201110.3%2C654.9%201120.3%2C647.6%201131%2C641.5%201142.4%2C636.6%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22-20%2C520%201460%2C240%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22200%2C-20%20700%2C920%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%221200%2C-20%20900%2C920%22%20fill%3D%22none%22%20stroke%3D%22%238290a5%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E");
+        }
+
+        /* 레이아웃 */
+        .wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
+        .nav {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 650;
+            font-size: 1.35rem;
+            letter-spacing: -0.035em;
+            /* text-transform: lowercase; */
+        }
+
+        .brand-name {
+            font-weight: 450;
+        }
+
+        .brand-name strong {
+            font-weight: 900;
+            letter-spacing: -0.045em;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            filter: var(--logo-filter);
+            transition: filter 0.25s ease;
+        }
+
+        .theme-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--text);
+        }
+
+        .theme-icon {
+            width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-icon svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        .theme-icon [data-icon-sun] {
+            display: none;
+        }
+
+        .theme-icon [data-icon-moon] {
+            display: block;
+        }
+
+        :root[data-theme="dark"] .theme-icon [data-icon-sun] {
+            display: block;
+        }
+
+        :root[data-theme="dark"] .theme-icon [data-icon-moon] {
+            display: none;
+        }
+
+        main {
+            padding: 72px 0 96px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 히어로 배경 무늬: 흐르는 갈기 곡선 + 백마 옆모습 라인 아트 */
+        .hero-horse-mark {
+            position: absolute;
+            right: 8px;
+            bottom: -40px;
+            width: 560px;
+            height: 440px;
+            pointer-events: none;
+            opacity: var(--watermark-opacity);
+            color: var(--text);
+            transition: opacity 0.25s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .eyebrow-highlight {
+            color: #A78BFA;
+            font-weight: 800;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 18px;
+        }
+
+        /* 헤드라인 내 티커 배지 & 호버 툴팁 */
+        .asset-trigger {
+            anchor-name: --asset-trigger;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 3px 10px 3px 6px;
+            margin: 0 2px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+            vertical-align: baseline;
+            cursor: help;
+            transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .asset-trigger:hover,
+        .asset-trigger:focus-visible {
+            border-color: var(--text);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        /* BTT 글자의 기준선을 헤드라인 글자와 맞추고, 로고는 그 줄의 세로 중앙에 둠 */
+        .asset-trigger #assetTickerText {
+            align-self: baseline;
+        }
+
+        .asset-logo-img {
+            align-self: center;
+        }
+
+        .asset-logo-img {
+            width: 1.05em;
+            height: 1.05em;
+            object-fit: contain;
+            display: inline-block;
+            border-radius: 50%;
+            flex-shrink: 0;
+            filter: var(--btt-logo-filter);
+            transition: filter 0.25s ease;
+        }
+
+        .asset-tooltip {
+            --tooltip-w: min(340px, calc(100vw - 32px));
+            position: fixed;
+            position-anchor: --asset-trigger;
+            top: anchor(bottom);
+            margin-top: 12px;
+            left: clamp(16px, calc(anchor(center) - var(--tooltip-w) / 2), calc(100vw - var(--tooltip-w) - 16px));
+            position-try-fallbacks: flip-block;
+            z-index: 80;
+            width: var(--tooltip-w);
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--tooltip-border);
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            font-size: 0.85rem;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: 0;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.16s ease, transform 0.16s ease;
+        }
+
+        body:has(.asset-trigger:hover, .asset-trigger:focus-visible) .asset-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 앵커 포지셔닝 미지원 브라우저에서는 툴팁을 숨김 */
+        @supports not (anchor-name: --a) {
+            .asset-tooltip {
+                display: none;
+            }
+        }
+
+        .asset-tooltip-title {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            opacity: 0.82;
+        }
+
+        .lead {
+            font-size: 1.02rem;
+            color: var(--muted);
+            max-width: 60ch;
+            margin-bottom: 32px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--accent-text);
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.88;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            background-color: transparent;
+            font-weight: 500;
+            transition: border-color 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+        }
+
+        .btn-icon {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        /* 트레저리 지표 카드: 아이콘과 수치를 분리한 에디토리얼 레이아웃 */
+        .grid {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .card {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-width: 0;
+            min-height: 272px;
+            padding: 27px 27px 23px;
+            display: flex;
+            flex-direction: column;
+            background:
+                linear-gradient(145deg, var(--surface) 0%, var(--surface) 58%, var(--bg) 100%);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 27px;
+            right: 27px;
+            height: 2px;
+            border-radius: 0 0 999px 999px;
+            background: linear-gradient(90deg, var(--text), transparent 82%);
+            opacity: 0.22;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -92px;
+            right: -82px;
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(128, 138, 155, 0.13) 0%, rgba(128, 138, 155, 0) 70%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--muted);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .card-label {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            min-width: 0;
+            padding-top: 5px;
+            line-height: 1.35;
+        }
+
+        .card-label-main {
+            color: var(--text);
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+        }
+
+        .card-label-sub {
+            color: var(--muted);
+            font-size: 0.73rem;
+            font-weight: 550;
+            letter-spacing: -0.015em;
+        }
+
+        /* 통화·코인 아이콘은 숫자 영역에서 분리해 카드 우측 상단에 배치 */
+        .unit-badge {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, var(--bg), var(--surface));
+            color: var(--text);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 7px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .unit-badge svg {
+            width: 25px;
+            height: 25px;
+            display: block;
+        }
+
+        .metric-row {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            margin: 30px 0 24px;
+            text-align: right;
+        }
+
+        /* 모든 카드의 숫자는 동일한 크기와 굵기로 통일하고 오른쪽에 정렬 */
+        .card-value {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            color: var(--text);
+            font-family: "D2Coding", monospace;
+            font-size: clamp(1.75rem, 3.5vw, 2.15rem);
+            font-weight: 800;
+            letter-spacing: -0.075em;
+            line-height: 1.16;
+            font-variant-numeric: tabular-nums;
+            text-align: right;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            text-shadow: 0 1px 0 rgba(127, 127, 127, 0.08);
+        }
+
+        /* 소수점 이하 자릿수는 정수부 바로 아래에 별도 행으로 오른쪽 정렬 */
+        .decimal-part {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 0.56em;
+            font-weight: 600;
+            letter-spacing: -0.035em;
+            line-height: 1.3;
+            text-align: right;
+            opacity: 0.96;
+            white-space: nowrap;
+        }
+
+        .card-unit {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-family: "D2Coding", monospace;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* BTT Price 카드: 푸터 좌측 출처 표기 + 우측 단위 */
+        .card-unit--source {
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-source {
+            min-width: 0;
+            color: var(--muted);
+            opacity: 0.7;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0;
+            text-decoration: none;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+
+        .card-source:hover,
+        .card-source:focus-visible {
+            color: var(--text);
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* 중앙 모달 (모든 스크롤바 숨김) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background-color: var(--modal-backdrop);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal-backdrop.is-open {
+            display: flex;
+        }
+
+        .modal-dialog {
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px 36px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        .modal-dialog::-webkit-scrollbar {
+            display: none;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-eyebrow {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0;
+            color: var(--muted);
+            margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.25;
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            flex: 0 0 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+            color: var(--text);
+            transition: border-color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            border-color: var(--text);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .modal-points {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .modal-point-box {
+            padding: 15px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+        }
+
+        .modal-point-box h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .modal-point-box p {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* 트레저리 장부 리스트 */
+        .ledger-list {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background-color: var(--bg);
+            overflow: hidden;
+        }
+
+        .ledger-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+        .ledger-row:last-child {
+            border-bottom: none;
+        }
+
+        .ledger-date {
+            font-family: "D2Coding", monospace;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+            flex: 0 0 auto;
+            min-width: 72px;
+        }
+
+        .ledger-desc {
+            color: var(--text);
+            font-weight: 500;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .ledger-amount {
+            font-family: "D2Coding", monospace;
+            color: var(--text);
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            text-align: right;
+            flex: 0 0 auto;
+        }
+
+        /* 장부 모달의 금액은 소수점 이하까지 한 줄로 이어서 표시 */
+        .ledger-amount .decimal-part,
+        .ledger-total-amount .decimal-part {
+            display: inline;
+            width: auto;
+            margin-top: 0;
+            font-size: 0.78em;
+            font-weight: 500;
+            letter-spacing: inherit;
+            line-height: inherit;
+            color: inherit;
+            opacity: 0.55;
+        }
+
+        /* 입금(+)은 녹색, 출금(-)은 빨간색 */
+        .ledger-amount.is-in {
+            color: var(--amount-in);
+        }
+
+        .ledger-amount.is-out {
+            color: var(--amount-out);
+        }
+
+        /* 단위(BTT)는 입금/출금 색상에서 제외 */
+        .ledger-amount .ledger-unit {
+            color: var(--text);
+        }
+
+        /* 총 보유 수량 행 */
+        .ledger-total-row {
+            flex: 0 0 auto;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background-color: var(--bg);
+        }
+
+        .ledger-total-row .ledger-desc {
+            flex: 0 0 auto;
+            font-weight: 700;
+        }
+
+        .ledger-total-amount {
+            margin-left: auto;
+            font-family: "D2Coding", monospace;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .modal-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        /* 장부 모달: 제목·총 보유 수량·안내 문구는 고정하고 내역 목록만 스크롤 */
+        .modal-dialog--ledger {
+            overflow-y: hidden;
+        }
+
+        .modal-dialog--ledger .modal-main {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        .modal-dialog--ledger .modal-body {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .modal-dialog--ledger .modal-body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 본문 안의 요소가 찌그러지지 않고 본문 자체가 스크롤되도록 */
+        .modal-dialog--ledger .modal-body > * {
+            flex-shrink: 0;
+        }
+
+        .modal-dialog--ledger > .modal-note {
+            flex: 0 0 auto;
+            margin: 12px 0 0;
+        }
+
+        /* 모바일(720px 이하) 모달 상하 96% 높이 */
+        @media (max-width: 720px) {
+            .nav {
+                height: 72px;
+            }
+
+            .brand {
+                gap: 2px;
+                font-size: 1.2rem;
+            }
+
+            .brand-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .theme-btn {
+                gap: 7px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 36px 24px;
+            }
+
+            .card {
+                min-height: 264px;
+                padding: 24px 22px 21px;
+                border-radius: 19px;
+            }
+
+            .card::before {
+                left: 22px;
+                right: 22px;
+            }
+
+            .unit-badge {
+                width: 46px;
+                height: 46px;
+                flex-basis: 46px;
+                border-radius: 14px;
+            }
+
+            .unit-badge svg {
+                width: 23px;
+                height: 23px;
+            }
+
+            .metric-row {
+                margin-top: 25px;
+                margin-bottom: 21px;
+            }
+
+            .asset-trigger {
+                padding: 2px 8px 2px 5px;
+                border-radius: 10px;
+            }
+
+            .modal-backdrop {
+                padding: 2vh 12px;
+            }
+
+            .modal-dialog {
+                height: 96vh;
+                max-height: 96vh;
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .modal-points {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .modal-point-box {
+                padding: 12px 14px;
+            }
+
+            .ledger-row {
+                flex-wrap: wrap;
+                padding: 10px 12px;
+                font-size: 0.82rem;
+            }
+
+            .ledger-total-row {
+                padding: 12px;
+            }
+
+            .ledger-total-amount {
+                font-size: 0.86rem;
+            }
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 0;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px 24px;
+            flex-wrap: wrap;
+        }
+
+        /* 헤더 우측 버튼 그룹 */
+        .nav-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 400px) {
+            .nav-actions {
+                gap: 6px;
+            }
+
+            .theme-btn {
+                padding: 8px 10px;
+            }
+
+            .theme-btn [data-theme-label],
+            .live-label-text {
+                display: none;
+            }
+        }
+
+        /* Live 가격 갱신 버튼 (기본 꺼짐) */
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--muted);
+            opacity: 0.55;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .live-btn[aria-pressed="true"] {
+            border-color: var(--text);
+        }
+
+        .live-btn[aria-pressed="true"] .live-dot {
+            background-color: #22c55e;
+            opacity: 1;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+            animation: live-pulse 2s ease-out infinite;
+        }
+
+        @keyframes live-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+            70% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .live-btn[aria-pressed="true"] .live-dot {
+                animation: none;
+            }
+        }
+
+        /* 헤더 무늬 */
+        header {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-pattern {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            color: var(--text);
+            opacity: 0.33;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 32%, #000 68%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 32%, #000 68%, transparent 100%);
+        }
+
+        :root[data-theme="dark"] .header-pattern {
+            opacity: 0.36;
+        }
+
+        header .nav {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 720px) {
+            .hero-horse-mark {
+                right: -60px;
+                width: 400px;
+                height: 314px;
+            }
+        }
+
+        /* 입체파 무늬 팔레트 */
+        .ci { fill: var(--cb-ink); }
+        .cb { fill: var(--cb-blue); }
+        .co { fill: var(--cb-ochre); }
+
+        /* 푸터 Contact Us */
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            margin: -6px -14px -6px 0;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: inherit;
+            font-weight: 500;
+            box-shadow: inset 0 0 0 1px transparent;
+            transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-icon {
+            width: 15px;
+            height: 15px;
+            opacity: 0;
+            transform: translateX(4px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-link:hover,
+        .contact-link:focus-visible {
+            color: var(--text);
+            background-color: var(--bg);
+            box-shadow: inset 0 0 0 1px var(--border);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .contact-link:hover .contact-icon,
+        .contact-link:focus-visible .contact-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 복사 완료 안내 토스트 */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            z-index: 300;
+            max-width: calc(100vw - 32px);
+            padding: 12px 18px;
+            border-radius: 12px;
+            background-color: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            font-size: 0.875rem;
+            font-weight: 500;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 12px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .toast.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* 페이지 로딩 화면 (1초) */
+        html.is-loading body {
+            overflow: hidden;
+        }
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg);
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .page-loader.is-done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .loader-logo {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            filter: var(--logo-filter);
+            animation: loader-pulse 1s ease-in-out infinite;
+        }
+
+        .loader-name {
+            font-size: 1.2rem;
+            font-weight: 450;
+            letter-spacing: -0.035em;
+        }
+
+        .loader-name strong {
+            font-weight: 900;
+            letter-spacing: -0.045em;
+        }
+
+        .loader-bar {
+            position: relative;
+            width: 120px;
+            height: 2px;
+            border-radius: 999px;
+            background-color: var(--border);
+            overflow: hidden;
+        }
+
+        .loader-bar::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: var(--text);
+            transform-origin: left center;
+            animation: loader-fill 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes loader-fill {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes loader-pulse {
+            50% { opacity: 0.55; transform: scale(0.94); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .loader-logo {
+                animation: none;
+            }
+        }
+    </style>
+    <script>
+        const STORAGE_KEY = "blankavalo_theme_v2";
+
+        /* 트레저리 자산 설정 (티커·로고 변경 시 이 객체를 수정하세요. 툴팁 문구는 HTML에서 직접 수정) */
+        const ASSET_CONFIG = {
+            ticker: "BTT",
+            contactEmail: "blankakavalo@gmail.com",
+            coingeckoId: "bittorrent", /* CoinGecko 코인 ID (BTT 시세 조회용) */
+            logoUrl: "./bittorrent-logo.png",
+        };
+
+        /* 트레저리 장부 기록 (필요 시 항목을 수정·추가할 수 있습니다) */
+        const TREASURY_LEDGER = [
+            { date: "26-11-11", note: "Test Sell", amount: "-12,500,000,000.000000000000000000" },
+            { date: "26-11-01", note: "Buy", amount: "+12,500,000,000.000000000000000000" },
+            { date: "26-11-01", note: "Fee", amount: "-26,392,132.000000000000000000" },
+            { date: "26-11-01", note: "Mining Reward", amount: "+12,175,000.000000000000000000" },
+            { date: "26-11-01", note: "Staking Reward", amount: "+12,613,333.330000000000000000" },
+            { date: "26-11-01", note: "Seeding Reward", amount: "+1,000,000.000000000000000000" },
+            { date: "26-10-01", note: "Seeding Reserve", amount: "+2,200,000,000.000000000000000000" }
+        ];
+
+        /* 현재 보유 수량: 장부 합계로 자동 계산합니다. (수동 입력 금지 · 장부 항목만 수정하세요)
+           부동소수점 오차를 피하려고 소수점 18자리를 BigInt 정수로 환산해 더한 뒤 다시 문자열로 되돌립니다. */
+        const HOLDINGS_DECIMALS = 18;
+
+        function computeHoldingsAmount(ledger) {
+            const scale = 10n ** BigInt(HOLDINGS_DECIMALS);
+            let total = 0n;
+
+            for (const entry of ledger) {
+                const match = String(entry.amount).trim().replace(/,/g, "").match(/^([+-]?)(\d+)(?:\.(\d+))?$/);
+                if (!match) {
+                    console.warn("장부 금액 형식 오류:", entry);
+                    continue;
+                }
+                const fraction = (match[3] || "").padEnd(HOLDINGS_DECIMALS, "0").slice(0, HOLDINGS_DECIMALS);
+                const units = BigInt(match[2] + fraction);
+                total += match[1] === "-" ? -units : units;
+            }
+
+            const sign = total < 0n ? "-" : "";
+            const abs = total < 0n ? -total : total;
+            const fractionText = (abs % scale).toString().padStart(HOLDINGS_DECIMALS, "0");
+            return sign + (abs / scale).toString() + "." + fractionText;
+        }
+
+        const HOLDINGS_AMOUNT = computeHoldingsAmount(TREASURY_LEDGER);
+
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem(STORAGE_KEY);
+            if (savedTheme === "light" || savedTheme === "dark") {
+                return savedTheme;
+            }
+            return "dark";
+        }
+
+        function applyTheme(theme) {
+            const root = document.documentElement;
+            if (theme === "dark") {
+                root.setAttribute("data-theme", "dark");
+            } else {
+                root.removeAttribute("data-theme");
+            }
+            localStorage.setItem(STORAGE_KEY, theme);
+            updateThemeButton(theme);
+        }
+
+        function updateThemeButton(theme) {
+            const btn = document.getElementById("themeToggle");
+            if (!btn) {
+                return;
+            }
+            const label = btn.querySelector("[data-theme-label]");
+
+            if (label) {
+                label.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+            }
+            btn.setAttribute(
+                "aria-label",
+                theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            );
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+            const nextTheme = currentTheme === "dark" ? "light" : "dark";
+            applyTheme(nextTheme);
+        }
+
+        function applyAssetConfig() {
+            const tickerTextEl = document.getElementById("assetTickerText");
+            const logoImgEl = document.getElementById("assetLogoImg");
+            const badgeEl = document.getElementById("assetUnitBadge");
+            const subHoldingsEl = document.getElementById("holdingsSubText");
+
+            if (tickerTextEl) {
+                tickerTextEl.textContent = ASSET_CONFIG.ticker;
+            }
+            if (logoImgEl) {
+                logoImgEl.src = ASSET_CONFIG.logoUrl;
+                logoImgEl.alt = ASSET_CONFIG.ticker + " 로고";
+            }
+            if (badgeEl) {
+                badgeEl.setAttribute("aria-label", ASSET_CONFIG.ticker + " 아이콘");
+            }
+            if (subHoldingsEl) {
+                subHoldingsEl.textContent = ASSET_CONFIG.ticker;
+            }
+        }
+
+        function openModal(modalId) {
+            closeAllModals();
+            const modal = document.getElementById(modalId);
+            if (!modal) {
+                return;
+            }
+            modal.classList.add("is-open");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeAllModals() {
+            const modals = document.querySelectorAll(".modal-backdrop");
+            for (let i = 0; i < modals.length; i += 1) {
+                modals[i].classList.remove("is-open");
+            }
+            document.body.style.overflow = "";
+        }
+
+        function handleBackdropClick(event) {
+            if (event.target === event.currentTarget) {
+                closeAllModals();
+            }
+        }
+
+        /* 보유 수량처럼 소수점 자릿수를 그대로 보존해야 하는 값의 표시 */
+        function renderExactDecimalValue(element, value, locale = "en-US") {
+            if (!element) {
+                return;
+            }
+
+            const match = String(value).trim().match(/^(-?)(\d+)(?:\.(\d+))?$/);
+            if (!match) {
+                element.textContent = String(value);
+                return;
+            }
+
+            const sign = match[1];
+            const integerPart = match[2];
+            const fractionPart = match[3] || "";
+            const groupedInteger = new Intl.NumberFormat(locale, {
+                useGrouping: true,
+                maximumFractionDigits: 0
+            }).format(BigInt(integerPart));
+
+            element.replaceChildren(document.createTextNode(sign + groupedInteger));
+
+            if (fractionPart.length > 0) {
+                const decimalSpan = document.createElement("span");
+                decimalSpan.className = "decimal-part";
+                decimalSpan.textContent = "." + fractionPart;
+                element.appendChild(decimalSpan);
+            }
+        }
+
+        function renderHoldings() {
+            const holdingsEl = document.getElementById("asset-holdings");
+            renderExactDecimalValue(holdingsEl, HOLDINGS_AMOUNT, "ko-KR");
+
+            /* 보유 수량의 갱신일: 장부에서 가장 최근 날짜 (YY-MM-DD 형식은 문자열 비교로 정렬 가능) */
+            const updatedEl = document.getElementById("holdingsUpdatedAt");
+            if (updatedEl && TREASURY_LEDGER.length > 0) {
+                const latest = TREASURY_LEDGER.map((entry) => entry.date).sort().pop();
+                updatedEl.textContent = "Updated " + latest.replace(/-/g, ".");
+            }
+        }
+
+        /* 장부 금액: 부호·천 단위 구분·소수점 18자리까지 항상 같은 형식으로 표시 */
+        const LEDGER_DECIMAL_DIGITS = 18;
+
+        function normalizeLedgerAmount(value) {
+            const match = String(value).trim().replace(/,/g, "").match(/^([+-]?)(\d+)(?:\.(\d+))?$/);
+            if (!match) {
+                return String(value);
+            }
+            const sign = match[1];
+            const grouped = BigInt(match[2]).toLocaleString("en-US");
+            const fraction = (match[3] || "").padEnd(LEDGER_DECIMAL_DIGITS, "0").slice(0, LEDGER_DECIMAL_DIGITS);
+            return sign + grouped + "." + fraction;
+        }
+
+        function renderLedgerAmount(element, value) {
+            const text = normalizeLedgerAmount(value);
+            const dot = text.indexOf(".");
+            element.replaceChildren(document.createTextNode(dot === -1 ? text : text.slice(0, dot)));
+            if (dot !== -1) {
+                const decimalSpan = document.createElement("span");
+                decimalSpan.className = "decimal-part";
+                decimalSpan.textContent = text.slice(dot);
+                element.appendChild(decimalSpan);
+            }
+        }
+
+        function renderLedger() {
+            const listEl = document.getElementById("ledger-entries");
+            const totalEl = document.getElementById("ledger-total");
+            if (listEl) {
+                listEl.innerHTML = "";
+                for (let i = 0; i < TREASURY_LEDGER.length; i += 1) {
+                    const entry = TREASURY_LEDGER[i];
+                    const row = document.createElement("div");
+                    row.className = "ledger-row";
+
+                    const dateSpan = document.createElement("span");
+                    dateSpan.className = "ledger-date";
+                    dateSpan.textContent = entry.date;
+
+                    const descSpan = document.createElement("span");
+                    descSpan.className = "ledger-desc";
+                    descSpan.textContent = entry.note;
+
+                    const amtSpan = document.createElement("span");
+                    amtSpan.className = "ledger-amount";
+                    const amountSign = String(entry.amount).trim().charAt(0);
+                    if (amountSign === "+") {
+                        amtSpan.classList.add("is-in");
+                    } else if (amountSign === "-") {
+                        amtSpan.classList.add("is-out");
+                    }
+                    renderLedgerAmount(amtSpan, entry.amount);
+                    const unitSpan = document.createElement("span");
+                    unitSpan.className = "ledger-unit";
+                    unitSpan.textContent = " " + ASSET_CONFIG.ticker;
+                    amtSpan.appendChild(unitSpan);
+
+                    row.appendChild(dateSpan);
+                    row.appendChild(descSpan);
+                    row.appendChild(amtSpan);
+                    listEl.appendChild(row);
+                }
+            }
+            if (totalEl) {
+                renderLedgerAmount(totalEl, HOLDINGS_AMOUNT);
+                totalEl.appendChild(document.createTextNode(" " + ASSET_CONFIG.ticker));
+            }
+        }
+
+        /* 시세 조회 (CoinGecko, USD) · 소수점 18자리까지 BigInt로 정확히 계산 */
+        const PRICE_DECIMALS = 18;
+
+        let assetPriceScaled = null; /* BTT 1개당 USD 가격 × 10^18 (BigInt) */
+        let priceUpdatedAt = null; /* 시세를 마지막으로 성공적으로 받아온 시각 (Date) */
+        let valuationStatus = "loading"; /* loading | ready | error */
+        let lastPriceFetchAt = 0;
+        let priceFetchInFlight = false;
+
+        function toScaledBigInt(value, decimals) {
+            let text = String(value).trim();
+            if (/e/i.test(text)) {
+                const num = Number(text);
+                if (!Number.isFinite(num)) {
+                    return null;
+                }
+                text = num.toFixed(decimals);
+            }
+            const match = text.match(/^(\d+)(?:\.(\d+))?$/);
+            if (!match) {
+                return null;
+            }
+            return BigInt(match[1] + (match[2] || "").padEnd(decimals, "0").slice(0, decimals));
+        }
+
+        function formatScaledBigInt(value, decimals) {
+            const scale = 10n ** BigInt(decimals);
+            return (value / scale).toString() + "." + (value % scale).toString().padStart(decimals, "0");
+        }
+
+        /* 갱신 시각 표기: YY.MM.DD HH:mm:ss (브라우저 현지 시간) */
+        function formatUpdatedAt(date) {
+            const pad = (n) => String(n).padStart(2, "0");
+            return pad(date.getFullYear() % 100) + "." + pad(date.getMonth() + 1) + "." + pad(date.getDate()) +
+                " " + pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":" + pad(date.getSeconds());
+        }
+
+        function renderValuation() {
+            const priceEl = document.getElementById("asset-price-usd");
+            const totalEl = document.getElementById("total-valuation-usd");
+            const priceUpdatedEl = document.getElementById("priceUpdatedAt");
+            const valuationUpdatedEl = document.getElementById("valuationUpdatedAt");
+            if (!priceEl || !totalEl || valuationStatus === "loading") {
+                return;
+            }
+
+            const updatedText = priceUpdatedAt ? "Updated " + formatUpdatedAt(priceUpdatedAt) : "Update failed";
+            if (priceUpdatedEl) {
+                priceUpdatedEl.textContent = updatedText;
+            }
+            if (valuationUpdatedEl) {
+                valuationUpdatedEl.textContent = updatedText;
+            }
+
+            const holdingsScaled = toScaledBigInt(HOLDINGS_AMOUNT, PRICE_DECIMALS);
+            if (assetPriceScaled === null || holdingsScaled === null) {
+                priceEl.textContent = "—";
+                totalEl.textContent = "—";
+                return;
+            }
+
+            const scale = 10n ** BigInt(PRICE_DECIMALS);
+            renderExactDecimalValue(priceEl, formatScaledBigInt(assetPriceScaled, PRICE_DECIMALS), "en-US");
+            renderExactDecimalValue(totalEl, formatScaledBigInt(assetPriceScaled * holdingsScaled / scale, PRICE_DECIMALS), "en-US");
+        }
+
+        /* CoinGecko에서 BTT의 USD 가격을 조회 */
+        async function fetchAssetValuation() {
+            if (priceFetchInFlight) {
+                return;
+            }
+            priceFetchInFlight = true;
+            lastPriceFetchAt = Date.now();
+            if (assetPriceScaled === null) {
+                valuationStatus = "loading";
+            }
+
+            try {
+                const endpoint = "https://api.coingecko.com/api/v3/simple/price?ids=" +
+                    encodeURIComponent(ASSET_CONFIG.coingeckoId) + "&vs_currencies=usd&precision=full";
+                const response = await fetch(endpoint);
+                if (!response.ok) {
+                    throw new Error("CoinGecko 시세 응답 오류");
+                }
+                const text = await response.text();
+                const data = JSON.parse(text);
+                const entry = data ? data[ASSET_CONFIG.coingeckoId] : null;
+                const price = entry ? entry.usd : null;
+                if (typeof price !== "number" || !Number.isFinite(price) || price <= 0) {
+                    throw new Error("CoinGecko 시세 누락");
+                }
+
+                /* JSON 숫자(부동소수점)로 변환하기 전의 원문 문자열을 사용해 자릿수 손실을 피함 */
+                const rawMatch = text.match(/"usd"\s*:\s*([0-9eE.+-]+)/);
+                const scaled = toScaledBigInt(rawMatch ? rawMatch[1] : price, PRICE_DECIMALS);
+                if (scaled === null || scaled <= 0n) {
+                    throw new Error("CoinGecko 시세 형식 오류");
+                }
+
+                assetPriceScaled = scaled;
+                priceUpdatedAt = new Date();
+                valuationStatus = "ready";
+            } catch {
+                /* 갱신 실패 시 이전에 받은 시세가 있으면 그대로 유지, 없으면 오류 표시 */
+                valuationStatus = assetPriceScaled !== null ? "ready" : "error";
+            }
+
+            priceFetchInFlight = false;
+            renderValuation();
+        }
+
+        /* Live 모드: 켜면 1분마다 시세 갱신 (기본 꺼짐, 새로고침 시 다시 꺼짐) */
+        const LIVE_REFRESH_INTERVAL_MS = 60000;
+        let liveTimerId = null;
+
+        function isLiveOn() {
+            return liveTimerId !== null;
+        }
+
+        function liveTick() {
+            if (!document.hidden) {
+                fetchAssetValuation();
+            }
+        }
+
+        function setLive(on) {
+            if (on === isLiveOn()) {
+                return;
+            }
+
+            if (on) {
+                /* Live를 켜는 즉시 한 번 갱신하고, 이후 1분마다 반복 */
+                fetchAssetValuation();
+                liveTimerId = setInterval(liveTick, LIVE_REFRESH_INTERVAL_MS);
+            } else {
+                clearInterval(liveTimerId);
+                liveTimerId = null;
+            }
+
+            const stateEl = document.getElementById("liveState");
+            if (stateEl) {
+                stateEl.textContent = on ? "ON" : "OFF";
+            }
+
+            const btn = document.getElementById("liveToggle");
+            if (btn) {
+                btn.setAttribute("aria-pressed", on ? "true" : "false");
+                btn.setAttribute(
+                    "aria-label",
+                    on ? "Turn off live price updates" : "Turn on live price updates (every 1 minute)"
+                );
+            }
+        }
+
+        function toggleLive() {
+            setLive(!isLiveOn());
+        }
+
+        /* 백그라운드 탭에서는 갱신을 건너뛰므로, 다시 보일 때 오래됐으면 즉시 갱신 */
+        document.addEventListener("visibilitychange", function () {
+            if (isLiveOn() && !document.hidden && Date.now() - lastPriceFetchAt >= LIVE_REFRESH_INTERVAL_MS) {
+                fetchAssetValuation();
+            }
+        });
+
+        /* 새로고침 시 로딩 화면 표시 시간 (ms) */
+        const PAGE_LOADER_MS = 1000;
+        document.documentElement.classList.add("is-loading");
+
+        applyTheme(getPreferredTheme());
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+            updateThemeButton(currentTheme);
+
+            const btn = document.getElementById("themeToggle");
+            if (btn) {
+                btn.addEventListener("click", toggleTheme);
+            }
+
+            const liveBtn = document.getElementById("liveToggle");
+            if (liveBtn) {
+                liveBtn.addEventListener("click", toggleLive);
+            }
+
+            setTimeout(hidePageLoader, Math.max(0, PAGE_LOADER_MS - performance.now()));
+
+            const contactBtn = document.getElementById("contactBtn");
+            if (contactBtn) {
+                contactBtn.addEventListener("click", copyContactEmail);
+            }
+
+            applyAssetConfig();
+            renderHoldings();
+            renderLedger();
+            fetchAssetValuation();
+        });
+
+        /* 로딩 화면 숨기기 */
+        function hidePageLoader() {
+            const loader = document.getElementById("pageLoader");
+            document.documentElement.classList.remove("is-loading");
+            if (!loader) {
+                return;
+            }
+            loader.classList.add("is-done");
+            setTimeout(function () {
+                loader.remove();
+            }, 450);
+        }
+
+        /* 토스트 안내 */
+        let toastTimerId = null;
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            if (!toast) {
+                return;
+            }
+            toast.textContent = message;
+            toast.classList.add("is-visible");
+            clearTimeout(toastTimerId);
+            toastTimerId = setTimeout(function () {
+                toast.classList.remove("is-visible");
+            }, 2400);
+        }
+
+        function fallbackCopyText(text) {
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            let copied = false;
+            try {
+                copied = document.execCommand("copy");
+            } catch {
+                copied = false;
+            }
+            document.body.removeChild(area);
+            return copied;
+        }
+
+        /* Contact Us: 이메일 주소를 클립보드에 복사하고 안내 */
+        async function copyContactEmail() {
+            const email = ASSET_CONFIG.contactEmail;
+            let copied = false;
+            try {
+                await navigator.clipboard.writeText(email);
+                copied = true;
+            } catch {
+                copied = fallbackCopyText(email);
+            }
+            showToast(copied ? "Email address copied: " + email : "Couldn't copy automatically. Email address: " + email);
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeAllModals();
+            }
+        });
+    </script>
+    <noscript><style>.page-loader { display: none; }</style></noscript>
+</head>
+<body>
+    <!-- 새로고침 시 1초간 표시되는 로딩 화면 -->
+    <div id="pageLoader" class="page-loader" role="status" aria-live="polite" aria-label="로딩 중">
+        <div class="loader-inner">
+            <img src="./logo.webp" alt="" class="loader-logo">
+            <span class="loader-name">Blan<strong>ka</strong>valo<span style="font-weight: 200;">&trade;</span></span>
+            <span class="loader-bar" aria-hidden="true"></span>
+        </div>
+    </div>
+    <header>
+        <!-- 헤더 무늬: 입체파 조각들이 겹치는 피카소 풍 패턴 (양끝은 서서히 투명) -->
+        <svg class="header-pattern" viewBox="0 0 960 72" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke-linejoin="round">
+<polygon points="0,0 59,0 75,72 16,72" fill-opacity="0.09" class="ci" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="57,0 111,0 145,72 91,72" fill-opacity="0.05" class="cb" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="133,0 220,0 193,72 106,72" fill-opacity="0.09" class="co" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="194,72 220,13 246,72" fill-opacity="0.07" class="ci" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="256,0 321,0 298,72 233,72" fill-opacity="0.09" class="cb" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="333,0 386,0 367,72 314,72" fill-opacity="0.05" class="co" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="406,0 496,0 469,72 379,72" fill-opacity="0.09" class="ci" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="470,72 507.5,7 545,72" fill-opacity="0.05" class="cb" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="535,0 593,0 596,72 538,72" fill-opacity="0.07" class="co" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="588,0 672,0 653,72 569,72" fill-opacity="0.09" class="ci" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="659,0 744,0 733,72 648,72" fill-opacity="0.05" class="cb" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="734,72 777,11 820,72" fill-opacity="0.05" class="co" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="799,0 894,0 868,72 773,72" fill-opacity="0.09" class="ci" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="849,0 938,0 930,72 841,72" fill-opacity="0.07" class="cb" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polygon points="931,0 1008,0 1014,72 937,72" fill-opacity="0.07" class="co" stroke="currentColor" stroke-opacity="0.193" stroke-width="0.7"/>
+<polyline points="109.3,28.5 110.7,25.4 112.5,22.6 114.8,20.1 117.4,18 120.3,16.3 123.4,15 126.7,14.3 130,14 133.3,14.3 136.6,15 139.7,16.3 142.6,18 145.2,20.1 147.5,22.6 149.3,25.4 150.7,28.5" fill="none" stroke="currentColor" stroke-opacity="0.248" stroke-width="0.8"/>
+<polyline points="345,45.5 343.7,48.3 341.8,50.8 339.5,52.9 336.8,54.5 333.8,55.5 330.7,56 327.6,55.8 324.5,55 321.7,53.7 319.2,51.8 317.1,49.5 315.5,46.8 314.5,43.8 314,40.7 314.2,37.6 315,34.5" fill="none" stroke="currentColor" stroke-opacity="0.248" stroke-width="0.8"/>
+<polyline points="497.4,38.2 496.4,34.2 496,30 496.4,25.8 497.4,21.8 499.2,18 501.6,14.6 504.6,11.6 508,9.2 511.8,7.4 515.8,6.4 520,6 524.2,6.4 528.2,7.4 532,9.2 535.4,11.6 538.4,14.6" fill="none" stroke="currentColor" stroke-opacity="0.248" stroke-width="0.8"/>
+<polyline points="709,28.4 711.9,30.5 714.3,33 716.1,36 717.4,39.3 718,42.8 717.8,46.3 717,49.8 715.6,53 713.5,55.9 711,58.3 708,60.1 704.7,61.4 701.2,62 697.7,61.8 694.2,61 691,59.6" fill="none" stroke="currentColor" stroke-opacity="0.248" stroke-width="0.8"/>
+<polyline points="838,34 838.4,29.9 839.5,26 841.3,22.4 843.8,19.1 846.8,16.4 850.3,14.3 854.1,12.8 858.1,12.1 862.2,12.1 866.2,12.9 869.9,14.4 873.4,16.5 876.4,19.3 878.8,22.6 880.6,26.3 881.7,30.2" fill="none" stroke="currentColor" stroke-opacity="0.248" stroke-width="0.8"/>
+<polyline points="40,72 260,0" fill="none" stroke="currentColor" stroke-opacity="0.165" stroke-width="0.6"/>
+<polyline points="300,72 520,0" fill="none" stroke="currentColor" stroke-opacity="0.165" stroke-width="0.6"/>
+<polyline points="560,72 800,0" fill="none" stroke="currentColor" stroke-opacity="0.165" stroke-width="0.6"/>
+<polyline points="700,72 940,0" fill="none" stroke="currentColor" stroke-opacity="0.165" stroke-width="0.6"/>
+        </svg>
+        <div class="wrap nav">
+            <a href="#" class="brand">
+                <img src="./logo.webp" alt="blankavalo 로고" class="brand-logo">
+                <span class="brand-name">Blan<strong>ka</strong>valo<span style="font-weight: 200;">&trade;</span></span>
+            </a>
+            <div class="nav-actions">
+                <button id="themeToggle" type="button" class="theme-btn" aria-label="Switch to light mode">
+                    <span class="theme-icon" aria-hidden="true">
+                        <!-- Light Mode 전환 아이콘: Sun -->
+                        <svg data-icon-sun xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+                        </svg>
+                        <!-- Dark Mode 전환 아이콘: Moon -->
+                        <svg data-icon-moon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M20.9 13.1A8.5 8.5 0 0 1 10.9 3.1 8.5 8.5 0 1 0 20.9 13.1Z"/>
+                        </svg>
+                    </span>
+                    <span data-theme-label>Light Mode</span>
+                </button>
+                <button id="liveToggle" type="button" class="theme-btn live-btn" aria-pressed="false" aria-label="Turn on live price updates (every 1 minute)" title="Live price updates · every 1 minute">
+                    <span class="live-dot" aria-hidden="true"></span>
+                    <span class="live-label"><span class="live-label-text">Live </span><span id="liveState">OFF</span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrap">
+            <section class="hero">
+                <!-- 입체파(큐비즘) 백마: 측면과 정면의 면을 겹쳐 쌓은 피카소 풍 말 머리 -->
+                <svg class="hero-horse-mark" viewBox="0 0 560 440" fill="none" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                    <defs><pattern id="cubistHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="0.8" stroke-opacity="0.2"/></pattern></defs>
+<polygon points="0,70 330,0 430,250 70,330" fill-opacity="0.05" class="ci" stroke="none"/>
+<polygon points="330,0 560,40 560,300 430,250" fill-opacity="0.07" class="co" stroke="none"/>
+<polygon points="70,330 430,250 470,440 40,440" fill-opacity="0.06" class="cb" stroke="none"/>
+<polyline points="0,400 560,170" fill="none" stroke="currentColor" stroke-opacity="0.099" stroke-width="1"/>
+<polygon points="260,142 306,214 196,222" fill-opacity="0.16" class="ci" stroke="currentColor" stroke-opacity="0.11" stroke-width="1"/>
+<polygon points="196,222 306,214 286,270 214,300 172,288 168,256" fill-opacity="0.12" class="cb" stroke="currentColor" stroke-opacity="0.11" stroke-width="1"/>
+<polygon points="286,270 322,296 306,350 286,410 372,410 360,300" fill-opacity="0.09" class="cb" stroke="currentColor" stroke-opacity="0.11" stroke-width="1"/>
+<polygon points="366,88 394,112 428,196 450,300 470,410 410,410 392,300 362,210 346,140" fill="url(#cubistHatch)" stroke="none"/>
+<polygon points="280,96 346,124 360,236 314,300 260,236" fill-opacity="0.17" class="co" stroke="currentColor" stroke-opacity="0.165" stroke-width="1.2"/>
+<polygon points="338,26 314,76 260,142 196,222 168,256 172,288 214,300 286,270 322,296 306,350 286,410 470,410 450,300 428,196 394,112 366,88" fill="none" stroke="currentColor" stroke-opacity="0.231" stroke-width="2"/>
+<polyline points="260,142 306,214 286,270" fill="none" stroke="currentColor" stroke-opacity="0.165" stroke-width="1.2"/>
+<polyline points="350,118 392,192 422,290 440,410" fill="none" stroke="currentColor" stroke-opacity="0.154" stroke-width="1.1"/>
+<polyline points="326,138 362,210 392,300 406,410" fill="none" stroke="currentColor" stroke-opacity="0.154" stroke-width="1.1"/>
+<polygon points="176,290 138,308 184,304" fill-opacity="0.3" class="ci" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
+<polygon points="238,188 254,182 266,192 250,198" fill-opacity="0.6" class="ci" stroke="none"/>
+<polygon points="308,160 324,150 340,160 324,170" fill-opacity="0.1" class="ci" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
+<polygon points="320,160 324,156 328,160 324,164" fill-opacity="0.6" class="ci" stroke="none"/>
+<polyline points="302,248 310,262" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.2"/>
+<polyline points="326,248 318,262" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.2"/>
+<polyline points="184,264 202,272" fill="none" stroke="currentColor" stroke-opacity="0.193" stroke-width="1.2"/>
+                </svg>
+
+                <div class="hero-content">
+                    <span class="eyebrow">
+                        100% Independent <span class="eyebrow-highlight">BTT</span> Treasury
+                    </span>
+                    <h1>
+                        The World's Cockiest <span id="assetTrigger" class="asset-trigger" tabindex="0" aria-describedby="assetTooltip">
+                            <img id="assetLogoImg" src="./bittorrent-logo.png" alt="BTT 로고" class="asset-logo-img">
+                            <span id="assetTickerText">BTT</span>
+                        </span> Treasury Company.
+                    </h1>
+                    <p class="lead">
+                        Blankavalo&trade; is on a mission to accumulate BTT, the cheapest cryptocurrency around. We're parodying the strategies of giant crypto treasury companies. Our goal? To own 0.1% of all BTT and act like we're a major player in the crypto world. As you probably know, we have absolutely no influence! :)
+                    </p>
+                    <div class="actions">
+                        <button type="button" class="btn-primary" onclick="openModal('modal-strategy')">
+                            <!-- 트레저리 전략 아이콘 (piggy-bank) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-piggy-bank btn-icon" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.138-1.496A6.6 6.6 0 0 1 7.964 4.5c.666 0 1.303.097 1.893.273a.5.5 0 0 0 .286-.958A7.6 7.6 0 0 0 7.964 3.5c-.734 0-1.441.103-2.102.292a.5.5 0 1 0 .276.962"/>
+                                <path fill-rule="evenodd" d="M7.964 1.527c-2.977 0-5.571 1.704-6.32 4.125h-.55A1 1 0 0 0 .11 6.824l.254 1.46a1.5 1.5 0 0 0 1.478 1.243h.263c.3.513.688.978 1.145 1.382l-.729 2.477a.5.5 0 0 0 .48.641h2a.5.5 0 0 0 .471-.332l.482-1.351c.635.173 1.31.267 2.011.267.707 0 1.388-.095 2.028-.272l.543 1.372a.5.5 0 0 0 .465.316h2a.5.5 0 0 0 .478-.645l-.761-2.506C13.81 9.895 14.5 8.559 14.5 7.069q0-.218-.02-.431c.261-.11.508-.266.705-.444.315.306.815.306.815-.417 0 .223-.5.223-.461-.026a1 1 0 0 0 .09-.255.7.7 0 0 0-.202-.645.58.58 0 0 0-.707-.098.74.74 0 0 0-.375.562c-.024.243.082.48.32.654a2 2 0 0 1-.259.153c-.534-2.664-3.284-4.595-6.442-4.595M2.516 6.26c.455-2.066 2.667-3.733 5.448-3.733 3.146 0 5.536 2.114 5.536 4.542 0 1.254-.624 2.41-1.67 3.248a.5.5 0 0 0-.165.535l.66 2.175h-.985l-.59-1.487a.5.5 0 0 0-.629-.288c-.661.23-1.39.359-2.157.359a6.6 6.6 0 0 1-2.157-.359.5.5 0 0 0-.635.304l-.525 1.471h-.979l.633-2.15a.5.5 0 0 0-.17-.534 4.65 4.65 0 0 1-1.284-1.541.5.5 0 0 0-.446-.275h-.56a.5.5 0 0 1-.492-.414l-.254-1.46h.933a.5.5 0 0 0 .488-.393m12.621-.857a.6.6 0 0 1-.098.21l-.044-.025c-.146-.09-.157-.175-.152-.223a.24.24 0 0 1 .117-.173c.049-.027.08-.021.113.012a.2.2 0 0 1 .064.199"/>
+                            </svg>
+                            <span>Treasury Strategy</span>
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="openModal('modal-ledger')">
+                            <!-- 트레저리 장부 아이콘 (list) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list btn-icon" viewBox="0 0 16 16" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                            <span>Treasury History</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ticker Hover Tooltip -->
+            <div id="assetTooltip" class="asset-tooltip" role="tooltip">
+                <span class="asset-tooltip-title">What is BTT?</span>
+                <span>BTT (BitTorrent Token) is a utility token powering the BitTorrent ecosystem, one of the world's largest decentralized peer-to-peer (P2P) file-sharing protocols, and built on the TRON network. It supports a broad range of Web3 infrastructure backed by a massive user base, including network bandwidth-sharing incentives, decentralized storage (BTFS), and cross-chain bridges.</span>
+            </div>
+
+            <section id="metrics" class="grid" aria-label="트레저리 지표">
+                <!-- Card 1: Reserve Balance -->
+                <article class="card card--holdings">
+                    <div class="card-header">
+                        <div class="card-label">
+                            <span class="card-label-main">BTT Holdings</span>
+                            <span id="holdingsUpdatedAt" class="card-label-sub">—</span>
+                        </div>
+                        <span id="assetUnitBadge" class="unit-badge" aria-label="BTT Icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="metric-row">
+                        <span id="asset-holdings" class="card-value">2,999,990,000.000000000000000000</span>
+                    </div>
+                    <div id="holdingsSubText" class="card-unit" aria-label="Asset Unit">BTT</div>
+                </article>
+
+                <!-- Card 2: Spot Price -->
+                <article class="card card--price">
+                    <div class="card-header">
+                        <div class="card-label">
+                            <span class="card-label-main">BTT Price</span>
+                            <span id="priceUpdatedAt" class="card-label-sub">Updating…</span>
+                        </div>
+                        <span class="unit-badge" aria-label="Currency Symbol">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/></svg>
+                        </span>
+                    </div>
+                    <div class="metric-row">
+                        <span id="asset-price-usd" class="card-value">Loading...</span>
+                    </div>
+                    <div class="card-unit card-unit--source">
+                        <a class="card-source" href="https://www.coingecko.com/en/api" target="_blank" rel="noopener noreferrer">Data provided by CoinGecko</a>
+                        <span aria-label="Currency Unit">USD</span>
+                    </div>
+                </article>
+
+                <!-- Card 3: Total Valuation -->
+                <article class="card card--valuation">
+                    <div class="card-header">
+                        <div class="card-label">
+                            <span class="card-label-main">Total Valuation</span>
+                            <span id="valuationUpdatedAt" class="card-label-sub">Updating…</span>
+                        </div>
+                        <span class="unit-badge" aria-label="Currency Symbol">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/></svg>
+                        </span>
+                    </div>
+                    <div class="metric-row">
+                        <span id="total-valuation-usd" class="card-value">Loading...</span>
+                    </div>
+                    <div class="card-unit" aria-label="Currency Unit">USD</div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- 모달 1: 트레저리 전략 -->
+    <div id="modal-strategy" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-strategy-title" onclick="handleBackdropClick(event)">
+        <div class="modal-dialog">
+            <div>
+                <div class="modal-top">
+                    <div>
+                        <h2 id="modal-strategy-title" class="modal-title">Treasury Strategy</h2>
+                        <span class="modal-eyebrow">Last Updated: 26.11.26</span>
+                    </div>
+                    <button type="button" class="modal-close" aria-label="창 닫기" onclick="closeAllModals()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 6 6 18M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Blankavalo&trade; is a fully independent treasury company that rules out external borrowing and derivative leverage altogether, accumulating BTT (BitTorrent Token) over the long term through spot holdings only.
+                    </p>
+                    <div class="modal-points">
+                        <div class="modal-point-box">
+                            <h3>Buy Low</h3>
+                            <p>We take full advantage of BTT being one of the cheapest cryptocurrencies around. Rather than trying to time the market, we buy spot in regular installments whenever the market is quiet.</p>
+                        </div>
+                        <div class="modal-point-box">
+                            <h3>Staking Rewards</h3>
+                            <p>We never sell the rewards earned from staking our BTT; we reinvest them in full. It is a slow but sure compounding loop in which a growing stack keeps producing more stack.</p>
+                        </div>
+                        <div class="modal-point-box">
+                            <h3>Mining Swaps</h3>
+                            <p>We mine a variety of mineable coins, then swap the rewards into BTT and add them to the treasury. With no outside capital, we grow our holdings on electricity and computing power alone.</p>
+                        </div>
+                        <div class="modal-point-box">
+                            <h3>Ecosystem Activity</h3>
+                            <p>We seed files and share bandwidth in the BTT ecosystem, and every BTT reward we receive in return goes straight into the treasury. We contribute to the ecosystem and accumulate at the same time.</p>
+                        </div>
+                    </div>
+                    <p class="modal-note">
+                        ※ We are a parody brand satirizing giant treasury companies. This content is not investment advice.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 2: 트레저리 장부 -->
+    <div id="modal-ledger" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-ledger-title" onclick="handleBackdropClick(event)">
+        <div class="modal-dialog modal-dialog--ledger">
+            <div class="modal-main">
+                <div class="modal-top">
+                    <div>
+                        <h2 id="modal-ledger-title" class="modal-title">Treasury History</h2>
+                        <span class="modal-eyebrow">Last Updated: 26.11.26</span>
+                    </div>
+                    <button type="button" class="modal-close" aria-label="창 닫기" onclick="closeAllModals()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 6 6 18M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The current status and history of the BTT (BitTorrent Token) holdings that Blankavalo&trade; has accumulated independently.
+                    </p>
+                    <div id="ledger-entries" class="ledger-list" aria-label="매집 내역"></div>
+                </div>
+            </div>
+            <div class="ledger-row ledger-total-row">
+                <span class="ledger-desc">Total Holdings</span>
+                <span id="ledger-total" class="ledger-total-amount">2,999,990,000.000000000000000000 BTT</span>
+            </div>
+            <p class="modal-note">
+                ※ We are a parody brand satirizing giant treasury companies. This content is not investment advice.
+            </p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-inner">
+                <span class="footer-left">© 2026 Blankavalo&trade;</span>
+                <button type="button" id="contactBtn" class="contact-link" aria-label="Copy contact email address">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg>
+                    <span>Contact Us</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
